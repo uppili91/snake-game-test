@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Snake Game - Deluxe Edition</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Snake — Deluxe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>🐍 Fancy Snake Game</h1>
-        <div id="instructions">
-            <p>🎮 Use <strong>arrow keys</strong> or <strong>swipe</strong> on mobile to move.</p>
-            <p>🍎 Eat red fruits to grow and level up. Avoid walls and yourself!</p>
-            <p>🔥 Level up every 50 points. Speeds increase!</p>
-            <label for="difficulty">Select difficulty:</label>
-            <select id="difficulty">
-                <option value="150">Easy</option>
-                <option value="100" selected>Medium</option>
-                <option value="60">Hard</option>
-            </select>
-            <button onclick="startGame()">Start Game</button>
-        </div>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div id="status">
-            <p>Score: <span id="score">0</span> | High Score: <span id="highScore">0</span> | Level: <span id="level">1</span></p>
-        </div>
-    </div>
+  <div class="wrap">
+    <header class="topbar">
+      <h1>🐍 Snake — Deluxe</h1>
+      <div class="controls">
+        <label class="select">
+          <span>Difficulty</span>
+          <select id="difficulty">
+            <option value="160">Easy</option>
+            <option value="110" selected>Medium</option>
+            <option value="70">Hard</option>
+          </select>
+        </label>
+        <button id="btnStart" class="btn primary">Start</button>
+        <button id="btnPause" class="btn">Pause</button>
+        <button id="btnReset" class="btn">Reset</button>
+        <button id="btnHelp" class="btn ghost">How to Play</button>
+      </div>
+    </header>
 
-    <!-- Preload sound effects -->
-    <audio id="eatSound" src="eat.mp3" preload="auto"></audio>
-    <audio id="gameOverSound" src="gameover.mp3" preload="auto"></audio>
+    <main class="board">
+      <canvas id="game" width="420" height="420" aria-label="Snake playfield"></canvas>
+      <div class="hud">
+        <div>Score: <span id="score">0</span></div>
+        <div>High: <span id="high">0</span></div>
+        <div>Level: <span id="level">1</span></div>
+        <div>Speed: <span id="speed">—</span>ms</div>
+      </div>
 
-    <script src="script.js"></script>
+      <!-- On-screen mobile controls -->
+      <div class="dpad" id="dpad">
+        <button data-dir="up" aria-label="Up">▲</button>
+        <div class="hrow">
+          <button data-dir="left" aria-label="Left">◀</button>
+          <button data-dir="right" aria-label="Right">▶</button>
+        </div>
+        <button data-dir="down" aria-label="Down">▼</button>
+      </div>
+    </main>
+
+    <!-- Toast / reward popup -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Modal: Instructions -->
+    <dialog id="helpModal">
+      <h2>How to Play</h2>
+      <ul>
+        <li>Use <strong>Arrow Keys</strong> (desktop) or <strong>swipe / D‑pad</strong> (mobile) to move.</li>
+        <li>Eat the <span class="fruitDot"></span> fruit to grow. Each fruit gives <strong>+10</strong> points.</li>
+        <li>Every <strong>50 points</strong> you <strong>level up</strong> and the snake moves faster.</li>
+        <li>Avoid hitting the walls or yourself. That’s <strong>Game Over</strong>.</li>
+        <li>Pick a difficulty before starting. You can pause anytime.</li>
+      </ul>
+      <button id="closeHelp" class="btn primary">Got it</button>
+    </dialog>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
