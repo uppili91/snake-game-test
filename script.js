@@ -103,3 +103,72 @@ function drawGame() {
     ctx.fillStyle = "#e53935";
     ctx.fillRect(fruit.x * gridSize, fruit.y * gridSize, gridSize, gridSize);
 }
+
+
+// High Score Tracking
+let highScore = localStorage.getItem("highScore") || 0;
+document.getElementById("score").insertAdjacentHTML("afterend", ` | High Score: <span id="highScore">${highScore}</span>`);
+
+// Sound Effects
+const eatSound = new Audio("eat.mp3");
+const gameOverSound = new Audio("gameover.mp3");
+
+// Touch Controls for Mobile
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
+
+canvas.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+        velocity = dx > 0 && velocity.x === 0 ? { x: 1, y: 0 } : dx < 0 && velocity.x === 0 ? { x: -1, y: 0 } : velocity;
+    } else {
+        velocity = dy > 0 && velocity.y === 0 ? { x: 0, y: 1 } : dy < 0 && velocity.y === 0 ? { x: 0, y: -1 } : velocity;
+    }
+});
+
+function gameLoop() {
+    const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
+
+    if (head.x === fruit.x && head.y === fruit.y) {
+        eatSound.play();
+        fruit = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+        growing = true;
+        score += 10;
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem("highScore", highScore);
+            document.getElementById("highScore").textContent = highScore;
+        }
+        if (score % 50 === 0) levelUp();
+    }
+
+    snake.unshift(head);
+
+    if (!growing) {
+        snake.pop();
+    } else {
+        growing = false;
+    }
+
+    if (
+        head.x < 0 || head.y < 0 ||
+        head.x >= tileCount || head.y >= tileCount ||
+        snake.slice(1).some(seg => seg.x === head.x && seg.y === head.y)
+    ) {
+        gameOverSound.play();
+        alert("Game Over! Final Score: " + score);
+        clearInterval(interval);
+    }
+
+    drawGame();
+    updateStatus();
+}
