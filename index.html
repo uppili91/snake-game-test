@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Snake Game - Fancy Edition</title>
+    <title>Snake Game - Deluxe Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>🐍 Fancy Snake Game</h1>
         <div id="instructions">
-            <p>Use arrow keys to move the snake.</p>
-            <p>Eat the red fruit to grow longer and level up.</p>
-            <p>Avoid crashing into walls or yourself.</p>
-            <p>Choose difficulty to start:</p>
+            <p>🎮 Use <strong>arrow keys</strong> or <strong>swipe</strong> on mobile to move.</p>
+            <p>🍎 Eat red fruits to grow and level up. Avoid walls and yourself!</p>
+            <p>🔥 Level up every 50 points. Speeds increase!</p>
+            <label for="difficulty">Select difficulty:</label>
             <select id="difficulty">
                 <option value="150">Easy</option>
                 <option value="100" selected>Medium</option>
@@ -22,10 +22,14 @@
         </div>
         <canvas id="gameCanvas" width="400" height="400"></canvas>
         <div id="status">
-            <p>Score: <span id="score">0</span></p>
-            <p>Level: <span id="level">1</span></p>
+            <p>Score: <span id="score">0</span> | High Score: <span id="highScore">0</span> | Level: <span id="level">1</span></p>
         </div>
     </div>
+
+    <!-- Preload sound effects -->
+    <audio id="eatSound" src="eat.mp3" preload="auto"></audio>
+    <audio id="gameOverSound" src="gameover.mp3" preload="auto"></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
