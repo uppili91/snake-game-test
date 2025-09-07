@@ -2,12 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Snake Game</title>
+    <title>Snake Game - Fancy Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="container">
+        <h1>🐍 Fancy Snake Game</h1>
+        <div id="instructions">
+            <p>Use arrow keys to move the snake.</p>
+            <p>Eat the red fruit to grow longer and level up.</p>
+            <p>Avoid crashing into walls or yourself.</p>
+            <p>Choose difficulty to start:</p>
+            <select id="difficulty">
+                <option value="150">Easy</option>
+                <option value="100" selected>Medium</option>
+                <option value="60">Hard</option>
+            </select>
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div id="status">
+            <p>Score: <span id="score">0</span></p>
+            <p>Level: <span id="level">1</span></p>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

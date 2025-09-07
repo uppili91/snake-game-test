@@ -1,9 +1,25 @@
 body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #e1f5fe, #b3e5fc);
     text-align: center;
-    background-color: #e0f7fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding-top: 30px;
 }
 canvas {
     background-color: #ffffff;
-    border: 2px solid #000000;
+    border: 3px solid #0288d1;
+    display: block;
+    margin: 20px auto;
+}
+#instructions {
+    margin-bottom: 10px;
+}
+#status p {
+    font-weight: bold;
+    margin: 0;
 }
